@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-dark bg-primary px-4">
+        <a class="navbar-brand" href="#">Client Dashboard</a>
+        <span class="navbar-text text-white">Welcome, <b th:text="${#authentication.name}">Client</b></span>
+    </nav>
+
+    <div class="container my-4">
+        <div class="row g-4">
+
+            <!-- My Cases -->
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">My Cases</h5>
+                        <p class="card-text">View status and progress of your cases.</p>
+                        <a href="#" class="btn btn-primary">View My Cases</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Appointments -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-info">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Appointments</h5>
+                        <p class="card-text">Manage meetings with your lawyer.</p>
+                        <a href="#" class="btn btn-outline-info">Manage Appointments</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-warning">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Help & Support</h5>
+                        <p class="card-text">Need help or want to raise a complaint?</p>
+                        <a href="#" class="btn btn-outline-warning">Contact Support</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
