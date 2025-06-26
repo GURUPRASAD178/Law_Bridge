@@ -1,0 +1,26 @@
+ <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg secondary navbar-light fixed-top shadow-sm " th:fragment="navbar">
+        <div class="container">
+
+            <a class="navbar-brand a1" th:href="@{/}"><i class="fa-solid fa-scale-balanced i1"></i>
+                <span class="nt2" style="color:#fff; font-size: 23px !important;"> LawBridge </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end " id="navbarNav">
+                <ul class="navbar-nav ">
+                    <li class="nav-item "><a class="nav-link active " th:href="@{/}"><span class="nt1">Home</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/about}"><span class="nt1">About</span></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/service}"><span class="nt1">Services</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/contact}"><span class="nt1">Contact</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/login}"><span class="nt1">Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/register}"><span class="nt1">Register</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
