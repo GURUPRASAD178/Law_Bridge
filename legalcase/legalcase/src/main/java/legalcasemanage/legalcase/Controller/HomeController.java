@@ -1,11 +1,14 @@
 package legalcasemanage.legalcase.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -50,10 +53,7 @@ public class HomeController {
         return "service";
     }
 
-    @GetMapping("/admin")
-    public String admin() {
-        return "admin";
-    }
+    
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
@@ -79,17 +79,104 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/admin-dashboard")
-    public String adminDashboard() {
-        return "admin_dashboard";
+    
+    
+    
+    @GetMapping("/admin")
+    public String adminDashboard(Model model) {
+    	List<LawyerModel> recentUsers = lawyerRepository.findTop5ByOrderByCreatedAtDesc();
+    	model.addAttribute("recentUsers", recentUsers);
+        return "admin"; // template name
+    }
+    
+    @GetMapping("/lawyers")
+    public String listLawyers(Model model) {
+        List<LawyerModel> lawyers = lawyerService.findAllLawyers(); // This should return only users with role = LAWYER
+        model.addAttribute("lawyers", lawyers);
+        return "lawyer_list";
     }
 
-    @GetMapping("/ld")
+    @GetMapping("/lawyer/edit/{id}")
+    public String editLawyer(@PathVariable Long id, Model model) {
+        LawyerModel lawyer = lawyerService.getById(id);
+        model.addAttribute("lawyer", lawyer);
+        return "edit_lawyer";
+    }
+
+    @GetMapping("/lawyer/delete/{id}")
+    public String deleteLawyer(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        lawyerService.deleteById(id);
+        redirectAttributes.addFlashAttribute("success", "Lawyer deleted successfully.");
+        return "redirect:/lawyers";
+    }
+
+    @GetMapping("/clients")
+    public String showClientList(Model model) {
+        List<LawyerModel> clients = lawyerRepository.findByRole("client");
+        model.addAttribute("clients", clients);
+        return "client_list";
+    }
+
+    @GetMapping("/clients/edit/{id}")
+    public String editClient(@PathVariable Long id, Model model) {
+        LawyerModel client = lawyerRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid client ID: " + id));
+        model.addAttribute("client", client);
+        return "edit_client"; // you’ll create this page next
+    }
+
+    @GetMapping("/clients/delete/{id}")
+    public String deleteClient(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        lawyerRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("success", "Client deleted successfully.");
+        return "redirect:/clients";
+    }
+
+    @PostMapping("/clients/update")
+    public String updateClient(@ModelAttribute("client") LawyerModel client, RedirectAttributes redirectAttributes) {
+        lawyerRepository.save(client);
+        redirectAttributes.addFlashAttribute("success", "Client updated successfully.");
+        return "redirect:/clients";
+    }
+
+    @GetMapping("/add-lawyer")
+    public String showAddLawyerForm(Model model) {
+        model.addAttribute("lawyer", new LawyerModel());
+        return "add_lawyer";
+    }
+
+    @PostMapping("/lawyers/save")
+    public String saveLawyer(@ModelAttribute("lawyer") LawyerModel lawyer, RedirectAttributes redirectAttributes) {
+        lawyer.setRole("lawyer");
+        lawyerRepository.save(lawyer);
+        redirectAttributes.addFlashAttribute("success", "Lawyer added successfully!");
+        return "redirect:/lawyers";
+    }
+
+    @GetMapping("/add-client")
+    public String showAddClientForm(Model model) {
+        model.addAttribute("client", new LawyerModel());
+        return "add_client";
+    }
+
+    @PostMapping("/clients/save")
+    public String saveClient(@ModelAttribute("client") LawyerModel client, RedirectAttributes redirectAttributes) {
+        client.setRole("client");
+        lawyerRepository.save(client);
+        redirectAttributes.addFlashAttribute("success", "Client added successfully!");
+        return "redirect:/clients";
+    }
+
+    
+    
+    
+    
+    @GetMapping("/lawyer_dashboard")
     public String lawyerDashboard() {
         return "lawyer_dashboard";
     }
 
-    @GetMapping("/cd")
+    @GetMapping("/client_dashboard")
     public String clientDashboard() {
         return "client_dashboard";
     }

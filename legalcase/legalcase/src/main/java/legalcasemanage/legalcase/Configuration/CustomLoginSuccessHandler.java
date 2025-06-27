@@ -25,9 +25,9 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         if (roles.contains("ROLE_ADMIN")) {
             response.sendRedirect("/admin");
         } else if (roles.contains("ROLE_LAWYER")) {
-            response.sendRedirect("/ld"); // lawyer dashboard
+            response.sendRedirect("/lawyer_dashboard"); // lawyer dashboard
         } else if (roles.contains("ROLE_CLIENT")) {
-            response.sendRedirect("/cd"); // client dashboard
+            response.sendRedirect("/client_dashboard"); // client dashboard
         } else {
             response.sendRedirect("/access-denied");
         }

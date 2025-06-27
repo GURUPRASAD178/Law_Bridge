@@ -2,424 +2,402 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - LegalCMS</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            padding: 50px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard - LegalCMS</title>
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+body {
+	background-color: #f8f9fa;
+	padding: 50px;
+}
 
-        nav {
-            background-color: #1e3d6f;
-        }
+nav {
+	background-color: #1e3d6f;
+}
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 100;
-            padding: 48px 0 0;
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-            background-color: #fff;
-        }
+.sidebar {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	padding: 48px 0 0;
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+	background-color: #fff;
+}
 
-        .sidebar-sticky {
-            position: relative;
-            top: 0;
-            height: calc(100vh - 48px);
-            padding-top: .5rem;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
+.sidebar-sticky {
+	position: relative;
+	top: 0;
+	height: calc(100vh - 48px);
+	padding-top: .5rem;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
 
-        .navbar {
-            box-shadow: 0 0.125rem 0.25rem #1e3d6f;
-        }
+.navbar {
+	box-shadow: 0 0.125rem 0.25rem #1e3d6f;
+}
 
-        .nav-link {
-            color: #495057;
-        }
+.nav-link {
+	color: #495057;
+}
 
-        .nav-link.active {
-            color: #0d6efd;
-            font-weight: 500;
-        }
+.nav-link.active {
+	color: #0d6efd;
+	font-weight: 500;
+}
 
-        .nav-link:hover {
-            color: #0d6efd;
-        }
+.nav-link:hover {
+	color: #0d6efd;
+}
 
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-        }
+.card {
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
 
-        .card-stats .card-body {
-            padding: 1rem;
-        }
+.card-stats .card-body {
+	padding: 1rem;
+}
 
-        .card-stats .icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.card-stats .icon {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 
-        .badge-role {
-            font-size: 0.7em;
-            padding: 0.35em 0.65em;
-        }
+.badge-role {
+	font-size: 0.7em;
+	padding: 0.35em 0.65em;
+}
 
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 500;
-        }
+.user-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-weight: 500;
+}
 
-        .table-users img {
-            width: 40px;
-            height: 40px;
-        }
+.table-users img {
+	width: 40px;
+	height: 40px;
+}
 
-        .quick-action-card {
-            transition: transform 0.2s;
-        }
+.quick-action-card {
+	transition: transform 0.2s;
+}
 
-        .quick-action-card:hover {
-            transform: translateY(-5px);
-        }
+.quick-action-card:hover {
+	transform: translateY(-5px);
+}
 
-        .a1 {
-            font-size: 30px;
+.a1 {
+	font-size: 30px;
+}
 
-        }
-
-        .i1 {
-            background-color: rgb(255, 255, 255);
-            padding: 10px;
-            border-radius: 30px;
-        }
-    </style>
+.i1 {
+	background-color: rgb(255, 255, 255);
+	padding: 10px;
+	border-radius: 30px;
+}
+</style>
 </head>
 
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg  fixed-top">
-        <div class="container-fluid text-white">
-            <a class="navbar-brand a1" th:href="@{/}"><i class="fa-solid fa-scale-balanced i1"></i>
-                <span class="nt1 text-light"> LawBridge </span>
-                <span class="badge bg-light bg-opacity-5 text-primary ms-2 badge-role">Admin</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active text-light" th:href="@{/admin}">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" th:href="@{/add-lawyer}">Lawyers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" th:href="@{/add-client}">Clients</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" th:href="reports.html">Reports</a>
-                    </li>
-                    
-                </ul>
-                <ul class="navbar-nav ms-auto ">
-                    <li class="nav-item">
-                        <a class="nav-link position-relative" href="notifications.html">
-                            <i class="fas fa-bell fs-3 text-light"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                3
-                            </span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center " href="#" id="navbarDropdown"
-                            role="button" data-bs-toggle="dropdown">
-                            <div class="user-avatar bg-light text-dark me-2">A</div>
-                            <span class="text-light">Admin User</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                            <li><a class="dropdown-item" href="settings.html">Settings</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="../login.html">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg  fixed-top">
+		<div class="container-fluid text-white">
+			<a class="navbar-brand a1" th:href="@{/}"><i
+				class="fa-solid fa-scale-balanced i1"></i> <span
+				class="nt1 text-light"> LawBridge </span> <span
+				class="badge bg-light bg-opacity-5 text-primary ms-2 badge-role">Admin</span>
+			</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link active text-light"
+						th:href="@{/admin}">Dashboard</a></li>
+					<li class="nav-item"><a class="nav-link text-light"
+						th:href="@{/lawyers}">Lawyers</a></li>
+					<li class="nav-item"><a class="nav-link text-light"
+						th:href="@{/clients}">Clients</a></li>
+					<li class="nav-item"><a class="nav-link text-light"
+						th:href="reports.html">Reports</a></li>
 
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5 pt-3">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Admin Dashboard</h1>
-                </div>
+				</ul>
+				<ul class="navbar-nav ms-auto ">
+					<li class="nav-item"><a class="nav-link position-relative"
+						href="notifications.html"> <i
+							class="fas fa-bell fs-3 text-light"></i> <span
+							class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								3 </span>
+					</a></li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle d-flex align-items-center "
+						href="#" id="navbarDropdown" role="button"
+						data-bs-toggle="dropdown">
+<div class="avatar bg-light text-dark me-2" ></div>
+<span class="text-light" th:text="${#authentication.name}"></span>
+					</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="@{logout}">Logout</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-                <!-- Stats Cards -->
-                <div class="row g-4 mb-4">
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon bg-primary bg-opacity-10 text-primary">
-                                        <i class="fas fa-briefcase"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h6 class="text-muted mb-1">Total Lawyers</h6>
-                                        <h4 class="mb-0">24</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 ">
-                        <div class="card card-stats ">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center ">
-                                    <div class="icon bg-success bg-opacity-10 text-success">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h6 class="text-muted mb-1">Total Clients</h6>
-                                        <h4 class="mb-0">128</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon bg-info bg-opacity-10 text-info">
-                                        <i class="fas fa-file-alt"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h6 class="text-muted mb-1">Active Cases</h6>
-                                        <h4 class="mb-0">56</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div class="icon bg-secondary bg-opacity-10 text-secondary">
-                                        <i class="fas fa-cog"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h6 class="text-muted mb-1">System Uptime</h6>
-                                        <h4 class="mb-0">99.9%</h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Main Content -->
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5 pt-3">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2">Admin Dashboard</h1>
+				</div>
 
-                <!-- Quick Actions -->
-                <h2 class="h4 mb-3">Quick Actions</h2>
-                <div class="row g-4 mb-4">
-                    <div class="col-md-4">
-                        <div class="card quick-action-card h-100">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon bg-primary bg-opacity-10 text-primary p-3 rounded-3">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 class="card-title mb-0">Add New Lawyer</h5>
-                                        <p class="card-text text-muted">Register a new lawyer in the system</p>
-                                    </div>
-                                </div>
-                                <a href="lawyers-new.html" class="btn btn-primary">Add Lawyer</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card quick-action-card h-100">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon bg-success bg-opacity-10 text-success p-3 rounded-3">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 class="card-title mb-0">Add New Client</h5>
-                                        <p class="card-text text-muted">Register a new client in the system</p>
-                                    </div>
-                                </div>
-                                <a href="clients-new.html" class="btn btn-success">Add Client</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card quick-action-card h-100">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="icon bg-info bg-opacity-10 text-info p-3 rounded-3">
-                                        <i class="fas fa-chart-pie"></i>
-                                    </div>
-                                    <div class="ms-3">
-                                        <h5 class="card-title mb-0">Generate Reports</h5>
-                                        <p class="card-text text-muted">Create system-wide reports</p>
-                                    </div>
-                                </div>
-                                <a href="reports.html" class="btn btn-info text-white">View Reports</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<!-- Stats Cards -->
+				<div class="row g-4 mb-4">
+					<div class="col-md-6 col-lg-3">
+						<div class="card card-stats">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div class="icon bg-primary bg-opacity-10 text-primary">
+										<a th:href="@{/lawyers}"> <i class="fas fa-briefcase"></i></a>
+									</div>
+									<div class="ms-3">
+										<h6 class="text-muted mb-1">Total Lawyers</h6>
+										<h4 class="mb-0">24</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3 ">
+						<div class="card card-stats ">
+							<div class="card-body">
+								<div class="d-flex align-items-center ">
+									<div class="icon bg-success bg-opacity-10 text-success">
+										<a th:href="@{/clients}"> <i class="fas fa-users"></i>
+										</a>
+									</div>
+									<div class="ms-3">
+										<h6 class="text-muted mb-1">Total Clients</h6>
+										<h4 class="mb-0">128</h4>
 
-                <!-- Recent Users -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="h4 mb-0">Recent Users</h2>
-                    <a href="users.html" class="text-decoration-none">View all</a>
-                </div>
-                <div class="card mb-4">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="user-avatar bg-primary me-3">JS</div>
-                                            <span>John Smith</span>
-                                        </div>
-                                    </td>
-                                    <td>john.smith@example.com</td>
-                                    <td><span class="badge bg-primary bg-opacity-10 text-primary">Lawyer</span></td>
-                                    <td>May 15, 2023</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="user-avatar bg-success me-3">SJ</div>
-                                            <span>Sarah Johnson</span>
-                                        </div>
-                                    </td>
-                                    <td>sarah.j@example.com</td>
-                                    <td><span class="badge bg-success bg-opacity-10 text-success">Client</span></td>
-                                    <td>May 14, 2023</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="user-avatar bg-primary me-3">MB</div>
-                                            <span>Michael Brown</span>
-                                        </div>
-                                    </td>
-                                    <td>mbrown@example.com</td>
-                                    <td><span class="badge bg-primary bg-opacity-10 text-primary">Lawyer</span></td>
-                                    <td>May 12, 2023</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="user-avatar bg-success me-3">ED</div>
-                                            <span>Emily Davis</span>
-                                        </div>
-                                    </td>
-                                    <td>emily.davis@example.com</td>
-                                    <td><span class="badge bg-success bg-opacity-10 text-success">Client</span></td>
-                                    <td>May 10, 2023</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3">
+						<div class="card card-stats">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div class="icon bg-info bg-opacity-10 text-info">
+										<i class="fas fa-file-alt"></i>
+									</div>
+									<div class="ms-3">
+										<h6 class="text-muted mb-1">Active Cases</h6>
+										<h4 class="mb-0">56</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 col-lg-3">
+						<div class="card card-stats">
+							<div class="card-body">
+								<div class="d-flex align-items-center">
+									<div class="icon bg-secondary bg-opacity-10 text-secondary">
+										<i class="fas fa-cog"></i>
+									</div>
+									<div class="ms-3">
+										<h6 class="text-muted mb-1">System Uptime</h6>
+										<h4 class="mb-0">99.9%</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                <!-- System Status -->
-                <h2 class="h4 mb-3">System Status</h2>
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-2">
-                                        <span class="badge rounded-pill bg-success">&nbsp;</span>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">Database</h6>
-                                        <small class="text-muted">Operational</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-2">
-                                        <span class="badge rounded-pill bg-success">&nbsp;</span>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">API</h6>
-                                        <small class="text-muted">Operational</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-2">
-                                        <span class="badge rounded-pill bg-success">&nbsp;</span>
-                                    </div>
-                                    <div>
-                                        <h6 class="mb-0">Storage</h6>
-                                        <small class="text-muted">Operational</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
+				<!-- Quick Actions -->
+				<h2 class="h4 mb-3">Quick Actions</h2>
+				<div class="row g-4 mb-4">
+					<div class="col-md-4">
+						<div class="card quick-action-card h-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center mb-3">
+									<div
+										class="icon bg-primary bg-opacity-10 text-primary p-3 rounded-3">
+										<i class="fas fa-user-plus"></i>
+									</div>
+									<div class="ms-3">
+										<h5 class="card-title mb-0">Add New Lawyer</h5>
+										<p class="card-text text-muted">Register a new lawyer in
+											the system</p>
+									</div>
+								</div>
+								<a th:href="@{/add-lawyer}" class="btn btn-primary">Add
+									Lawyer</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card quick-action-card h-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center mb-3">
+									<div
+										class="icon bg-success bg-opacity-10 text-success p-3 rounded-3">
+										<i class="fas fa-users"></i>
+									</div>
+									<div class="ms-3">
+										<h5 class="card-title mb-0">Add New Client</h5>
+										<p class="card-text text-muted">Register a new client in
+											the system</p>
+									</div>
+								</div>
+								<a th:href="@{/add-client}" class="btn btn-success">Add
+									Client</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card quick-action-card h-100">
+							<div class="card-body">
+								<div class="d-flex align-items-center mb-3">
+									<div class="icon bg-info bg-opacity-10 text-info p-3 rounded-3">
+										<i class="fas fa-chart-pie"></i>
+									</div>
+									<div class="ms-3">
+										<h5 class="card-title mb-0">Generate Reports</h5>
+										<p class="card-text text-muted">Create system-wide reports</p>
+									</div>
+								</div>
+								<a href="reports.html" class="btn btn-info text-white">View
+									Reports</a>
+							</div>
+						</div>
+					</div>
+				</div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Initialize tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script>
+				<!-- Recent Users -->
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h2 class="h4 mb-0">Recent Users</h2>
+					<a href="users.html" class="text-decoration-none">View all</a>
+				</div>
+				<div class="card mb-4">
+					<div class="table-responsive">
+						<table class="table table-hover align-middle mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Role</th>
+									<th>Date</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="user : ${recentUsers}">
+									<td>
+										<div class="d-flex align-items-center">
+											<div class="user-avatar bg-primary me-3"
+												th:with="nameParts=${user.full_name != null ? user.full_name.split(' ') : {'U'}}"
+												th:text="${nameParts.length > 1 ? nameParts[0].substring(0,1) + nameParts[1].substring(0,1) : nameParts[0].substring(0,1)}">
+												AB</div>
+											<span th:text="${user.full_name}">User Name</span>
+										</div>
+									</td>
+									<td th:text="${user.email}">email@example.com</td>
+									<td><span class="badge"
+										th:classappend="${user.role == 'lawyer'} ? 'bg-primary' : 'bg-success'"
+										th:text="${#strings.capitalize(user.role)}">Role</span></td>
+									<td th:text="${#dates.format(user.createdAt, 'dd MMM yyyy')}">01
+										Jan 2023</td>
+								</tr>
+							</tbody>
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- System Status -->
+				<h2 class="h4 mb-3">System Status</h2>
+				<div class="card mb-4">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="d-flex align-items-center">
+									<div class="me-2">
+										<span class="badge rounded-pill bg-success">&nbsp;</span>
+									</div>
+									<div>
+										<h6 class="mb-0">Database</h6>
+										<small class="text-muted">Operational</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="d-flex align-items-center">
+									<div class="me-2">
+										<span class="badge rounded-pill bg-success">&nbsp;</span>
+									</div>
+									<div>
+										<h6 class="mb-0">API</h6>
+										<small class="text-muted">Operational</small>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="d-flex align-items-center">
+									<div class="me-2">
+										<span class="badge rounded-pill bg-success">&nbsp;</span>
+									</div>
+									<div>
+										<h6 class="mb-0">Storage</h6>
+										<small class="text-muted">Operational</small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<!-- Bootstrap JS -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		// Initialize tooltips
+		var tooltipTriggerList = [].slice.call(document
+				.querySelectorAll('[data-bs-toggle="tooltip"]'))
+		var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl)
+		})
+	</script>
 </body>
 
 </html>
