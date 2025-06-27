@@ -85,4 +85,12 @@ public class LawyerModel {
     public Date getCreatedAt() {
         return createdAt;
     }
+
+	public void setCreatedAt(Date createdAt) {
+		// TODO Auto-generated method stub
+		this.createdAt = createdAt;
+	}
 }
+
+
+
