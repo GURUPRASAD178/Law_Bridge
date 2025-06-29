@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Client Dashboard - LawBridge</title>
+<title>My Cases - LawBridge</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-	
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
 body {
-	background-color: #2e3b55; /* Dark blue background */
+	background-color: #3b306b;
 	color: #ffffff;
 }
 
 .sidebar {
-	background-color: #212a3d; /* Even darker blue for sidebar */
+	background-color: #2a224a;
 	height: 100vh;
 	padding-top: 20px;
 }
@@ -29,18 +29,15 @@ body {
 }
 
 .sidebar a:hover {
-	background-color: #3c4c6b;
+	background-color: #4a3e7e;
 }
 
-.card {
-	background-color: #3c4c6b; /* Card background */
+.content-card {
+	background-color: #4a3e7e;
 	border: none;
 	color: #ffffff;
-}
-
-.card-header {
-	background-color: #4a5c7e;
-	border-bottom: none;
+	padding: 20px;
+	border-radius: 8px;
 }
 
 .table {
@@ -48,16 +45,21 @@ body {
 }
 
 .table thead th {
-	border-bottom: 2px solid #4a5c7e;
+	border-bottom: 2px solid #5d5093;
 	color: #b0c4de;
 }
 
 .table tbody tr {
-	border-bottom: 1px solid #4a5c7e;
+	border-bottom: 1px solid #5d5093;
 }
 
 .table tbody tr:last-child {
 	border-bottom: none;
+}
+
+.table a {
+	color: #87ceeb;
+	text-decoration: none;
 }
 
 .navbar-toggler {
@@ -71,7 +73,7 @@ body {
 }
 /* Style for active navigation link */
 .sidebar .nav-item .nav-link.active {
-	background-color: #3c4c6b;
+	background-color: #4a3e7e;
 	border-radius: 5px;
 }
 </style>
@@ -87,20 +89,27 @@ body {
 					</div>
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" th:href="@{/client_dashboard}"> <i
+							aria-current="page" th:href="@{/lawyer_dashboard}"> <i
 								class="fas fa-tachometer-alt me-2"></i> Dashboard
 						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/client/cases}"> <i
-								class="fas fa-briefcase me-2"></i> My Cases
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/cases}"> <i class="fas fa-briefcase me-2"></i>
+								Cases
 						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/client/messages}"> <i
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/clients}"> <i class="fas fa-users me-2"></i>
+								Clients
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/schedule}"> <i
+								class="fas fa-calendar-alt me-2"></i> Schedule
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/messages}"> <i
 								class="fas fa-envelope me-2"></i> Messages
 						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/client/lawyers}"> <i
-								class="fas fa-gavel me-2"></i> Lawyers
-						</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/logout}"> <i
-								class="fas fa-sign-out-alt me-2"></i> Logout
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+								<i class="fas fa-sign-out-alt me-2"></i> Logout
 						</a></li>
 					</ul>
 				</div>
@@ -109,75 +118,38 @@ body {
 			<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-					<h1 class="h2">Welcome, Client Name</h1>
+					<h1 class="h2">My Cases</h1>
 					<button class="navbar-toggler d-md-none collapsed" type="button"
 						data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 						aria-controls="sidebarMenu" aria-expanded="false"
 						aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
 					</button>
-					<div class="rounded-circle bg-light p-3"
-						style="width: 50px; height: 50px;"></div>
 				</div>
 
-				<p class="text-muted mb-4">Here's a quick overview of your legal
-					activity</p>
-
-				<div class="row g-4 mb-4">
-					<div class="col-md-3">
-						<div class="card p-3 text-center">
-							<h5 class="card-title">Total Cases</h5>
-							<p class="card-text fs-2 fw-bold">3</p>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card p-3 text-center">
-							<h5 class="card-title">Upcoming Hearings</h5>
-							<p class="card-text fs-2 fw-bold">2</p>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card p-3 text-center">
-							<h5 class="card-title">Active Lawyer</h5>
-							<p class="card-text fs-5 fw-bold">Adv. A. Sharma</p>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card p-3 text-center">
-							<h5 class="card-title">Unread Messages</h5>
-							<p class="card-text fs-2 fw-bold">5</p>
-						</div>
-					</div>
-				</div>
-
-				<h3 class="mb-3">Next Hearings</h3>
-				<div class="card p-3 mb-4">
+				<div class="content-card">
 					<div class="table-responsive">
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col">Case Title</th>
-									<th scope="col">Date</th>
-									<th scope="col">Location</th>
+									<th scope="col">Client Name</th>
 									<th scope="col">Status</th>
+									<th scope="col">Hearing Date</th>
+									<th scope="col">Details</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>Case v. XYZ</td>
+									<td>Case vs XYZ</td>
+									<td>John Doe</td>
+									<td>Active</td>
 									<td>2025-06-01</td>
-									<td>Courtroom A</td>
-									<td>Scheduled</td>
+									<td><a href="#">View</a></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
-				</div>
-
-				<h3 class="mb-3">Recent Messages</h3>
-				<div class="card p-3">
-					<p class="text-muted">No recent messages to display directly on
-						the dashboard. Please navigate to 'Messages' for full view.</p>
 				</div>
 
 				<footer class="text-center text-muted mt-5">

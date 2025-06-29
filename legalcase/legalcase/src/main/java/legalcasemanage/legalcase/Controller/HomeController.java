@@ -1,18 +1,23 @@
 package legalcasemanage.legalcase.Controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import legalcasemanage.legalcase.DTO.LawyerDTO;
+import legalcasemanage.legalcase.model.Appointment;
 import legalcasemanage.legalcase.model.LawyerModel;
 import legalcasemanage.legalcase.repository.LawyerRepository;
+import legalcasemanage.legalcase.service.AppointmentService;
 import legalcasemanage.legalcase.service.LawyerService;
 
 @Controller
@@ -20,13 +25,18 @@ public class HomeController {
 
     private final LawyerService lawyerService;
     private LawyerRepository lawyerRepository;
+    private AppointmentService appointmentService;
+
 
 
     @Autowired
-    public HomeController(LawyerService lawyerService, LawyerRepository lawyerRepository) {
-        this.lawyerService = lawyerService;
-        this.lawyerRepository = lawyerRepository;
-    }
+    public HomeController(LawyerService lawyerService, LawyerRepository lawyerRepository,
+			AppointmentService appointmentService) {
+		super();
+		this.lawyerService = lawyerService;
+		this.lawyerRepository = lawyerRepository;
+		this.appointmentService = appointmentService;
+	}
 
 
     
@@ -35,7 +45,9 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/about")
+
+
+	@GetMapping("/about")
     public String about() {
         return "about";
     }
@@ -173,9 +185,70 @@ public class HomeController {
         return "lawyer_dashboard";
     }
 
+    @GetMapping("/lawyer/clients")
+    public String lawyerYourClients(Model model) {
+        // Fetch and add clients data to the model
+        return "lawyer-your-clients"; // Corresponds to src/main/resources/templates/lawyer-your-clients.html
+    }
+
+    @GetMapping("/lawyer/cases")
+    public String lawyerMyCases(Model model) {
+        // Fetch and add cases data to the model
+        return "lawyer-my-cases"; // Corresponds to src/main/resources/templates/lawyer-my-cases.html
+    }
+    
+    @GetMapping("/lawyer/messages")
+    public String lawyerMessages(Model model) {
+        // Fetch and add messages data to the model
+        return "lawyer-messages"; // Corresponds to src/main/resources/templates/lawyer-messages.html
+    }
+
+    @GetMapping("/lawyer/schedule")
+    public String lawyerUpcomingSchedule(Model model) {
+        // Fetch and add schedule data to the model
+        return "lawyer-upcoming-schedule"; // Corresponds to src/main/resources/templates/lawyer-upcoming-schedule.html
+    }
+
+    // You might also have a profile edit page for lawyers
+    @GetMapping("/lawyer/profile")
+    public String lawyerProfile(Model model) {
+        // Fetch lawyer profile data
+        return "lawyer-profile"; // Assuming you create this HTML
+    }
+    
     @GetMapping("/client_dashboard")
     public String clientDashboard() {
         return "client_dashboard";
+    }
+    
+    @GetMapping("/client/cases")
+    public String clientMyLegalCases(Model model) {
+        // Fetch and add client's cases data to the model
+        return "client-my-legal-cases"; // Corresponds to src/main/resources/templates/client-my-legal-cases.html
+    }
+
+    @GetMapping("/client/messages")
+    public String clientYourMessages(Model model) {
+        // Fetch and add client's messages data to the model
+        return "client-your-messages"; // Corresponds to src/main/resources/templates/client-your-messages.html
+    }
+
+    
+    @GetMapping("/client/lawyers")
+    public String showLawyers(Model model) {
+        model.addAttribute("lawyers", lawyerService.findAllLawyers());
+        return "client_lawyer_list";
+    }
+
+    @PostMapping("/client/book")
+    public String book(@RequestParam Long clientId, @RequestParam Long lawyerId,
+                       @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date appointmentDate) {
+        Appointment appointment = new Appointment();
+        appointment.setClientId(clientId);
+        appointment.setLawyerId(lawyerId);
+        appointment.setAppointmentDate(appointmentDate);
+        appointmentService.bookAppointment(appointment);
+        return "redirect:/client/lawyers?success";
     }
 
 }

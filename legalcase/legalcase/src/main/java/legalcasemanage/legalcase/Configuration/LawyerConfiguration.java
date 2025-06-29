@@ -50,8 +50,8 @@ public class LawyerConfiguration {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/about", "/contact", "/register", "/service", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
-                .requestMatchers("/add_lawyer/**").hasRole("LAWYER")
-                .requestMatchers("/add_client/**").hasRole("CLIENT")
+                .requestMatchers("/lawyer_dashboard/**").hasRole("LAWYER")
+                .requestMatchers("/client_dashboard/**").hasRole("CLIENT")
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login

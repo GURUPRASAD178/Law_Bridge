@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upcoming Schedule - LawBridge</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+body {
+	background-color: #3b306b;
+	color: #ffffff;
+}
+
+.sidebar {
+	background-color: #2a224a;
+	height: 100vh;
+	padding-top: 20px;
+}
+
+.sidebar a {
+	color: #ffffff;
+	padding: 10px 15px;
+	text-decoration: none;
+	display: block;
+}
+
+.sidebar a:hover {
+	background-color: #4a3e7e;
+}
+
+.content-card {
+	background-color: #4a3e7e;
+	border: none;
+	color: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+}
+
+.table {
+	color: #ffffff;
+}
+
+.table thead th {
+	border-bottom: 2px solid #5d5093;
+	color: #b0c4de;
+}
+
+.table tbody tr {
+	border-bottom: 1px solid #5d5093;
+}
+
+.table tbody tr:last-child {
+	border-bottom: none;
+}
+
+.navbar-toggler {
+	color: #ffffff;
+	border-color: #ffffff;
+}
+
+.navbar-toggler-icon {
+	background-image:
+		url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+/* Style for active navigation link */
+.sidebar .nav-item .nav-link.active {
+	background-color: #4a3e7e;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 col-lg-2 d-md-block sidebar">
+				<div class="position-sticky">
+					<div class="d-flex align-items-center mb-3 ps-3">
+						<i class="fa-solid fa-scale-balanced i1"></i> <span
+							class="fs-5 fw-bold">LawBridge</span>
+					</div>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/lawyer_dashboard}">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/lawyer/cases}">
+                                <i class="fas fa-briefcase me-2"></i> Cases
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/lawyer/clients}">
+                                <i class="fas fa-users me-2"></i> Clients
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/lawyer/schedule}">
+                                <i class="fas fa-calendar-alt me-2"></i> Schedule
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/lawyer/messages}">
+                                <i class="fas fa-envelope me-2"></i> Messages
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/logout}">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+					<h1 class="h2">Upcoming Schedule</h1>
+					<button class="navbar-toggler d-md-none collapsed" type="button"
+						data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+						aria-controls="sidebarMenu" aria-expanded="false"
+						aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+				</div>
+
+				<div class="content-card">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col">Date</th>
+									<th scope="col">Time</th>
+									<th scope="col">Event</th>
+									<th scope="col">Case</th>
+									<th scope="col">Location</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>2025-05-16</td>
+									<td>10:00 AM</td>
+									<td>Court Hearing</td>
+									<td>State vs. Sharma</td>
+									<td>District Court Room 2</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<footer class="text-center text-muted mt-5">
+					<small>&copy; 2025 LawBridge. All rights reserved.</small>
+				</footer>
+			</main>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://kit.fontawesome.com/a076d05399.js"
+		crossorigin="anonymous"></script>
+</body>
+</html>
