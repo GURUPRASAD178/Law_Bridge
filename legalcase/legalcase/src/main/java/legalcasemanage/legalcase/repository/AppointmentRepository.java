@@ -8,5 +8,7 @@ import legalcasemanage.legalcase.model.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findByClientId(Long clientId);
+    List<Appointment> findByLawyerId(Long lawyerId);
+
 }
 

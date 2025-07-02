@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,36 +83,29 @@ body {
 							class="fs-5 fw-bold">LawBridge</span>
 					</div>
 					<ul class="nav flex-column">
-						<li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/lawyer_dashboard}">
-                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/lawyer/cases}">
-                                <i class="fas fa-briefcase me-2"></i> Cases
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/lawyer/clients}">
-                                <i class="fas fa-users me-2"></i> Clients
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/lawyer/schedule}">
-                                <i class="fas fa-calendar-alt me-2"></i> Schedule
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/lawyer/messages}">
-                                <i class="fas fa-envelope me-2"></i> Messages
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/logout}">
-                                <i class="fas fa-sign-out-alt me-2"></i> Logout
-                            </a>
-                        </li>
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" th:href="@{/lawyer_dashboard}"> <i
+								class="fas fa-tachometer-alt me-2"></i> Dashboard
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/cases}"> <i class="fas fa-briefcase me-2"></i>
+								Cases
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/clients}"> <i class="fas fa-users me-2"></i>
+								Clients
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/schedule}"> <i
+								class="fas fa-calendar-alt me-2"></i> Schedule
+						</a></li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{/lawyer/messages}"> <i
+								class="fas fa-envelope me-2"></i> Messages
+						</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/logout}">
+								<i class="fas fa-sign-out-alt me-2"></i> Logout
+						</a></li>
 					</ul>
 				</div>
 			</nav>
@@ -142,14 +135,19 @@ body {
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>2025-05-16</td>
+								<tr th:each="appointment : ${appointments}">
+									<td
+										th:text="${#dates.format(appointment.appointmentDate, 'yyyy-MM-dd')}">2025-05-16</td>
 									<td>10:00 AM</td>
-									<td>Court Hearing</td>
-									<td>State vs. Sharma</td>
-									<td>District Court Room 2</td>
+									<!-- You can later enhance this with time data -->
+									<td>Client Appointment</td>
+									<td
+										th:text="'Appointment with client ID: ' + ${appointment.clientId}">State
+										vs. Sharma</td>
+									<td>LawBridge Office</td>
 								</tr>
 							</tbody>
+
 						</table>
 					</div>
 				</div>

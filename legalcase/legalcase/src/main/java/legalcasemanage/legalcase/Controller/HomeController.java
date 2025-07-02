@@ -1,7 +1,9 @@
 package legalcasemanage.legalcase.Controller;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -204,10 +206,19 @@ public class HomeController {
     }
 
     @GetMapping("/lawyer/schedule")
-    public String lawyerUpcomingSchedule(Model model) {
-        // Fetch and add schedule data to the model
-        return "lawyer-upcoming-schedule"; // Corresponds to src/main/resources/templates/lawyer-upcoming-schedule.html
+    public String lawyerUpcomingSchedule(Model model, Principal principal) {
+        String email = principal.getName(); // Get logged-in lawyer's email
+        LawyerModel lawyer = lawyerRepository.findByEmail(email)
+            .orElseThrow(() -> new IllegalArgumentException("Lawyer not found with email: " + email));
+
+        List<Appointment> appointments = appointmentService.getAppointmentsByLawyer(lawyer.getId());
+        model.addAttribute("appointments", appointments);
+
+        return "lawyer-upcoming-schedule";
     }
+
+
+
 
     // You might also have a profile edit page for lawyers
     @GetMapping("/lawyer/profile")
@@ -215,6 +226,9 @@ public class HomeController {
         // Fetch lawyer profile data
         return "lawyer-profile"; // Assuming you create this HTML
     }
+    
+    
+    
     
     @GetMapping("/client_dashboard")
     public String clientDashboard() {
@@ -248,7 +262,7 @@ public class HomeController {
         appointment.setLawyerId(lawyerId);
         appointment.setAppointmentDate(appointmentDate);
         appointmentService.bookAppointment(appointment);
-        return "redirect:/client/lawyers?success";
+        return "redirect:/client-dashboards";
     }
 
 }

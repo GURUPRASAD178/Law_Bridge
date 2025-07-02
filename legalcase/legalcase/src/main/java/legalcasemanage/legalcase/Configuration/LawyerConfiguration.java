@@ -51,7 +51,7 @@ public class LawyerConfiguration {
                 .requestMatchers("/", "/about", "/contact", "/register", "/service", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/lawyer_dashboard/**").hasRole("LAWYER")
-                .requestMatchers("/client_dashboard/**").hasRole("CLIENT")
+                .requestMatchers("/client_dashboard/**","/client/book").hasRole("CLIENT")
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
