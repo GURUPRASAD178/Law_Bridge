@@ -20,5 +20,5 @@ public interface LawyerRepository extends JpaRepository<LawyerModel, Long> {
     
     List<LawyerModel> findTop5ByOrderByCreatedAtDesc();
 
-
+    
 }

@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import ch.qos.logback.core.net.server.Client;
 import legalcasemanage.legalcase.DTO.LawyerDTO;
 import legalcasemanage.legalcase.model.Appointment;
 import legalcasemanage.legalcase.model.LawyerModel;
+import legalcasemanage.legalcase.model.LegalCase;
+import legalcasemanage.legalcase.repository.CaseRepository;
 import legalcasemanage.legalcase.repository.LawyerRepository;
 import legalcasemanage.legalcase.service.AppointmentService;
 import legalcasemanage.legalcase.service.LawyerService;
@@ -28,21 +32,24 @@ public class HomeController {
     private final LawyerService lawyerService;
     private LawyerRepository lawyerRepository;
     private AppointmentService appointmentService;
+    private CaseRepository caseRepository;
 
 
 
-    @Autowired
+
+    @Autowired    
     public HomeController(LawyerService lawyerService, LawyerRepository lawyerRepository,
-			AppointmentService appointmentService) {
+			AppointmentService appointmentService, CaseRepository caseRepository) {
 		super();
 		this.lawyerService = lawyerService;
 		this.lawyerRepository = lawyerRepository;
 		this.appointmentService = appointmentService;
+		this.caseRepository = caseRepository;
 	}
 
 
-    
-    @GetMapping("/")
+
+	@GetMapping("/")
     public String home() {
         return "index";
     }
@@ -264,5 +271,16 @@ public class HomeController {
         appointmentService.bookAppointment(appointment);
         return "redirect:/client-dashboards";
     }
+    
+    
+    
+     @GetMapping("/client/file-case")
+     public String showCaseForm(Model model) {
+         model.addAttribute("lawyers", lawyerService.findAllLawyers());
+         return "file_case";
+     }
+
+       
+
 
 }

@@ -156,7 +156,7 @@ body {
 									<h5 th:text="${lawyer.full_name}">Lawyer Name</h5>
 									<p th:text="${lawyer.email}">email@example.com</p>
 
-									<form method="post" action="/client/book">
+									<form method="post" th:href="@{/client/book}">
 										<input type="hidden" name="lawyerId" th:value="${lawyer.id}" />
 										<label for="appointmentDate" class="form-label mt-2">Select
 											Date:</label> <input type="date" name="appointmentDate" required

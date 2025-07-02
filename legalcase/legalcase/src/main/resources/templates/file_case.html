@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>File New Case</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+</head>
+<body class="container py-5">
+    <h2>File a New Case</h2>
+    <form th:action="@{/client/file-case}" method="post">
+        <div class="mb-3">
+            <label for="lawyerId" class="form-label">Select Lawyer</label>
+            <select class="form-select" id="lawyerId" name="lawyerId" required>
+                <option th:each="lawyer : ${lawyers}"
+                        th:value="${lawyer.id}"
+                        th:text="${lawyer.full_name}">Lawyer Name</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="caseTitle" class="form-label">Case Title</label>
+            <input type="text" class="form-control" id="caseTitle" name="caseTitle" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Case Description</label>
+            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Case</button>
+    </form>
+</body>
+</html>

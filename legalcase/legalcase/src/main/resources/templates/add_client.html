@@ -34,7 +34,7 @@
                 <h2 class="card-title text-center mb-4">
                     <i class="fas fa-user-plus me-2"></i> Register New Client
                 </h2>
-                <form th:action="@{/clients/save}" th:object="${client}" method="post">
+                <form th:action="@{/register}" th:object="${client}" method="post">
                     <div class="mb-3">
                         <label for="full_name" class="form-label">Full Name</label>
                         <input type="text" th:field="*{full_name}" id="full_name" class="form-control" placeholder="Enter client's full name" required>
