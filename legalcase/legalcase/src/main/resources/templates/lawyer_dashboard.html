@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,7 +108,10 @@ body {
 			<main class="col-md-10 ms-sm-auto col-lg-10 px-md-4 py-4">
 				<div
 					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-					<h1 class="h2">Welcome, Lawyer</h1>
+					<div sec:authorize="isAuthenticated()">
+						<h1 class="h2">Welcome,</h1>
+						<span sec:authentication="name"></span>!
+					</div>
 					<button class="navbar-toggler d-md-none collapsed" type="button"
 						data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
 						aria-controls="sidebarMenu" aria-expanded="false"

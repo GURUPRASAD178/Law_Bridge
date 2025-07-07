@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reports - Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="container py-5">
+    <h2>Admin Reports</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card text-bg-primary">
+                <div class="card-body">
+                    <h5>Total Lawyers</h5>
+                    <p class="fs-4" th:text="${totalLawyers}">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-bg-success">
+                <div class="card-body">
+                    <h5>Total Clients</h5>
+                    <p class="fs-4" th:text="${totalClients}">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-bg-warning">
+                <div class="card-body">
+                    <h5>Total Cases</h5>
+                    <p class="fs-4" th:text="${totalCases}">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-bg-info">
+                <div class="card-body">
+                    <h5>Pending Cases</h5>
+                    <p class="fs-4" th:text="${pendingCases}">0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-bg-dark">
+                <div class="card-body">
+                    <h5>Resolved Cases</h5>
+                    <p class="fs-4" th:text="${resolvedCases}">0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

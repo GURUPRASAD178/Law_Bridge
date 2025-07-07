@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ch.qos.logback.core.net.server.Client;
 import legalcasemanage.legalcase.DTO.LawyerDTO;
 import legalcasemanage.legalcase.model.Appointment;
 import legalcasemanage.legalcase.model.LawyerModel;
@@ -98,7 +99,7 @@ public class HomeController {
     }
 
     
-    
+// ADMIN PAGE   
     
     @GetMapping("/admin")
     public String adminDashboard(Model model) {
@@ -185,12 +186,18 @@ public class HomeController {
         return "redirect:/clients";
     }
 
-    
+    @GetMapping("/reports")
+    public String reports() {
+    	return "reports.html";
+    }
     
     
     
     @GetMapping("/lawyer_dashboard")
-    public String lawyerDashboard() {
+    public String lawyerDashboard(Model model) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Get logged-in username
+        model.addAttribute("username", username);
         return "lawyer_dashboard";
     }
 
@@ -199,7 +206,13 @@ public class HomeController {
         // Fetch and add clients data to the model
         return "lawyer-your-clients"; // Corresponds to src/main/resources/templates/lawyer-your-clients.html
     }
-
+    
+    @GetMapping("/lawyer/add-client")
+    public String lawyerAddClientForm(Model model) {
+        model.addAttribute("client", new LawyerModel());
+        return "lawyer_add_client";
+    }
+    
     @GetMapping("/lawyer/cases")
     public String lawyerMyCases(Model model) {
         // Fetch and add cases data to the model
@@ -269,7 +282,7 @@ public class HomeController {
         appointment.setLawyerId(lawyerId);
         appointment.setAppointmentDate(appointmentDate);
         appointmentService.bookAppointment(appointment);
-        return "redirect:/client-dashboards";
+        return "redirect:/client_dashboard";
     }
     
     
@@ -280,7 +293,35 @@ public class HomeController {
          return "file_case";
      }
 
-       
+     @PostMapping("/client/file-case")
+     public String fileNewCase(@RequestParam("lawyerId") Long lawyerId,
+                               @RequestParam("caseTitle") String caseTitle,
+                               @RequestParam("description") String description,
+                               Authentication authentication) {
+         // Get logged-in client ID (assuming username is the client ID or map it accordingly)
+         Long clientId = getClientIdFromAuthentication(authentication);
+
+         LegalCase legalCase = new LegalCase();
+         legalCase.setClientId(clientId);
+         legalCase.setLawyerId(lawyerId);
+         legalCase.setCaseTitle(caseTitle);
+         legalCase.setDescription(description);
+         // filedDate and status are already set with defaults
+
+         caseRepository.save(legalCase);
+
+         return "redirect:/client/dashboard"; // Redirect after successful submission
+     }
+     
+     private Long getClientIdFromAuthentication(Authentication authentication) {
+         // e.g., If username is the client ID stored as String:
+//         return Long.valueOf(authentication.getClientId());
+
+         // Otherwise, fetch from UserDetails or ClientService if needed
+          return ((LawyerModel) lawyerRepository.findByRole(authentication.getName())).getId();
+     }
+
+
 
 
 }

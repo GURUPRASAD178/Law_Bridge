@@ -141,7 +141,7 @@ nav {
 					<li class="nav-item"><a class="nav-link text-light"
 						th:href="@{/clients}">Clients</a></li>
 					<li class="nav-item"><a class="nav-link text-light"
-						th:href="reports.html">Reports</a></li>
+						th:href="@{/reports}">Reports</a></li>
 
 				</ul>
 				<ul class="navbar-nav ms-auto ">
@@ -302,7 +302,7 @@ nav {
 										<p class="card-text text-muted">Create system-wide reports</p>
 									</div>
 								</div>
-								<a href="reports.html" class="btn btn-info text-white">View
+								<a th:href="@{/reports}" class="btn btn-info text-white">View
 									Reports</a>
 							</div>
 						</div>
