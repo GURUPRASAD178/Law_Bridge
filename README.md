@@ -52,8 +52,3 @@ This application is ideal for law firms, legal consultation platforms, and indiv
 | Security   | Spring Security (with JWT or session-based auth) |
 | Build Tool | Maven       |
 | Others     | Model-View-Controller (MVC) pattern, REST APIs (optional), DTOs |
-
----
-
-## 📂 **Project Structure**
-
